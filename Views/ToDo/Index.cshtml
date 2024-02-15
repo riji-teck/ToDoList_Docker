@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ToDoList.ToDoList>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    <a asp-action="Create"><i class="fas fa-plus"></i> Create New Task</a>
+</p>
+
+<div>
+
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.EditorFor(modelItem => item.IsActive, 
+               new { htmlAttributes = new { @class = "select-custom", disabled = "disabled", @readonly = "readonly", @Style = "appearance: none;" } })
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id"><i title="Edit" class="fas fa-pencil-alt"></i></a> |
+                <a asp-action="Delete" asp-route-id="@item.Id"><i title="Delete" class="fas fa-trash-alt"></i></a> |
+                <a asp-action="Star" asp-route-id="@item.Id"><i title="Star" class="fas fa-solid fa-star"></i></a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
